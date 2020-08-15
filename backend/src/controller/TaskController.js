@@ -1,4 +1,3 @@
-const taskModel =  require('../model/TaskModel');
 const TaskModel = require('../model/TaskModel');
 
 class TaskController {

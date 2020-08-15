@@ -1,7 +1,10 @@
 ## Agenda de Tarefas
 
 ## Pré-requisitos
--------------------
+- Ubuntu 18.04++;
+- Node.js ;
+- MongoDB ;
+- Yarn ou npm ;
 
 ## Backend
 - NodeJS
@@ -10,7 +13,6 @@
 ### Instalando NodeJS 
 - sudo apt-get update
 - sudo apt-get install nodejs
-
 
 ## Instalando MongoDb
 `https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-20-04`

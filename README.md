@@ -24,5 +24,7 @@
 ## Gerenciador de pacotes para instalar o NodeJS, package manager: 
 - `node -v`
 - `npm -v`
-- `yarn -v`
+- `yarn -v` 
+- express
+- npm install nodemon -D
 

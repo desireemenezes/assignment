@@ -20,11 +20,11 @@ const TaskValidation = async (req, res, next) => {
   
   else{
     let exists;
-    if(req.params.put_id){
+    if(req.params.id){
         exists = await TaskModel.
             findOne(
               { 
-                '_id': {'$ne': req.params.put_id},
+                '_id': {'$ne': req.params.id},
                 'when': {'$eq': new Date(when)},  
                 'macaddress': {'$in': macaddress}
               });

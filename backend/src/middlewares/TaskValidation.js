@@ -20,13 +20,23 @@ const TaskValidation = async (req, res, next) => {
   
   else{
     let exists;
-    exists = await TaskModel.
+    if(req.params.put_id){
+        exists = await TaskModel.
+            findOne(
+              { 
+                '_id': {'$ne': req.params.put_id},
+                'when': {'$eq': new Date(when)},  
+                'macaddress': {'$in': macaddress}
+              });
+        
+    } else {
+        exists = await TaskModel.
         findOne(
           { 
             'when': {'$eq': new Date(when)},  
             'macaddress': {'$in': macaddress}
           });
-    
+    }
     if(exists){
       return res.status(400).json({ error: 'já existe uma tarefa nesse dia e horário'});
     }

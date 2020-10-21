@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
     width: 100%;
     height: 70px;
-    background-color: #20295f;
+    background-color: #003049;
     border-bottom: 5px solid #ee6b26;
 
     display: flex;
@@ -39,7 +39,7 @@ export const RightSide = styled.div`
         margin: 0 10px;
 
         &:hover {
-            color: #ee6b26;
+            color: #f77f00;
         }
     }
 
@@ -50,7 +50,7 @@ export const RightSide = styled.div`
         }
         span {
             background-color: #fff;
-            color: #ee6b26;
+            color: #f77f00;
             padding: 3px 7px;
             border-radius: 50%;
             position: relative;

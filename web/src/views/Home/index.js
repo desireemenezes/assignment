@@ -7,6 +7,7 @@ import * as Style from './styles'
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import FilterCard from '../../components/FilterCard';
+import TaskCard from '../../components/TaskCard';
 
 function Home() {
   // nome do estado, função que atualizad o estado
@@ -31,6 +32,23 @@ function Home() {
           <FilterCard title="Ano" actived={filterActived === 'year'} />
         </button>
       </Style.FilterArea>
+
+      <Style.Title>
+            <h3>TAREFAS</h3>
+      </Style.Title>
+
+      <Style.Content>
+          <TaskCard></TaskCard>
+          <TaskCard></TaskCard>
+          <TaskCard></TaskCard>
+          <TaskCard></TaskCard>
+          <TaskCard></TaskCard>
+          <TaskCard></TaskCard>
+          <TaskCard></TaskCard>
+          <TaskCard></TaskCard>
+          <TaskCard></TaskCard>
+          <TaskCard></TaskCard>
+      </Style.Content>
       <Footer />
     </Style.Container>
   );

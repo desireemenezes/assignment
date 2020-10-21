@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
     width: 100%;
     height: 50px;
-    background-color: #20295f;
+    background-color: #003049;
     border-top: 5px solid #ee6b26;
 
     position: fixed;

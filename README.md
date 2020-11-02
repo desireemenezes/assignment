@@ -1,14 +1,28 @@
-## Agenda de Tarefas
+<h1 align="center"> 🚧 AGENDA DE TAREFAS 🚀 Em construção... 🚧</h1>
 
-## Pré-requisitos
-- Ubuntu 18.04++;
-- Node.js ;
-- MongoDB ;
-- Yarn ou npm ;
+### Pré-requisitos
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/). 
+Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
+
+### 🛠 Tecnologias
+As seguintes ferramentas foram usadas na construção deste do projeto:
+
+- [Node.js](https://nodejs.org/en/)
+- [React](https://pt-br.reactjs.org/)
+- [Javascrip](https://www.javascriptlan.org/)
+- [MongoDB] (https://docs.mongodb.com/);
+
+## Gerenciador de pacotes para instalar o NodeJS, package manager: 
+- `npm ou yarn
 
 ## Backend
 - NodeJS
 - MongoDb
+
+## FrontEnd
+- React
+- Styled-components
  
 ### Instalando NodeJS 
 - sudo apt-get update
@@ -21,10 +35,5 @@
 - $sudo apt update
 - $sudo apt install mongodb-org
 
-## Gerenciador de pacotes para instalar o NodeJS, package manager: 
-- `node -v`
-- `npm -v`
-- `yarn -v` 
-- express
-- npm install nodemon -D
+
 

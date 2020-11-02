@@ -13,6 +13,7 @@ function Home() {
   // nome do estado, função que atualizad o estado
   const [filterActived, setFilterActived] = useState('all');
   const [tasks, setTasks] =  useState([]);
+  const [lateCount, setLateCount] = useState([]);
 
   async function loadTasks(){
     await api.get(`/task/filter/${filterActived}/00-88-14-4D-4C-FB`)// interpolação de acento
@@ -22,14 +23,27 @@ function Home() {
     })
   }
 
+  async function lateVerify(){
+    await api.get(`/task/filter/late/00-88-14-4D-4C-FB`)// interpolação de acento
+    .then(response => {
+        setLateCount(response.data.lenght);       
+    })
+  }
+
+  function Notification(){
+    setFilterActived('late');
+  }
+
+
   useEffect(() =>{
     loadTasks();
+    lateVerify();
   }, [filterActived])
 
 
   return (
     <Style.Container>
-      <Header />
+      <Header  lateCount={lateCount} clickNotification={Notification}/>
       <Style.FilterArea>
         <button type="button" onClick={() => setFilterActived("all")}>
           <FilterCard title="Todos" actived={filterActived === 'all'} />
@@ -49,7 +63,7 @@ function Home() {
       </Style.FilterArea>
 
       <Style.Title>
-            <h3>TAREFAS</h3>
+  <   h3>{ filterActived === 'late'? 'TAREFAS ATRASADAS': 'TAREFAS'}</h3>
       </Style.Title>
 
       <Style.Content>

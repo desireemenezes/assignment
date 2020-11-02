@@ -42,6 +42,10 @@ export const RightSide = styled.div`
             color: #f77f00;
         }
     }
+    button {
+        background: transparent;
+        border: none;
+    }
 
     #notification {
         img {

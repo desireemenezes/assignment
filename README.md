@@ -11,7 +11,7 @@ As seguintes ferramentas foram usadas na construção deste do projeto:
 - [Node.js](https://nodejs.org/en/)
 - [React](https://pt-br.reactjs.org/)
 - [Javascrip](https://www.javascriptlan.org/)
-- [MongoDB] (https://docs.mongodb.com/);
+- [MongoDB](https://docs.mongodb.com/)
 
 ## Gerenciador de pacotes para instalar o NodeJS, package manager: 
 - `npm ou yarn

@@ -1,9 +1,11 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+
 import * as Styled from './styles'
 import logo from '../../assets/logo.png'
 import bell from '../../assets/bell.png'
 
-function Header() {
+function Header( {lateCount, clickNotification}) {
   return (
    <Styled.Container>
 
@@ -12,16 +14,16 @@ function Header() {
       </Styled.LeftSide>
 
       <Styled.RightSide>
-        <a href="#">INICIO</a>
+        <Link to="/">INICIO</Link>
         <span className="divider"></span>
-        <a href="#">NOVA TAREFA</a>
+        <Link to="task">NOVA TAREFA</Link>
         <span className="divider"></span>
         <a href="#">SINCRONIZAR CELULAR</a>
         <span className="divider"></span>
-        <a href="#" id="notification">
+        <button href="#" id="notification" onClick="">
           <img src={bell} alt="Notificação"></img>
-          <span>5</span>
-        </a>
+          <span>{lateCount > 0 ? lateCount : '0'}</span>
+        </button>
       </Styled.RightSide>
 
    </Styled.Container>

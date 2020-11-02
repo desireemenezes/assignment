@@ -1,4 +1,6 @@
 import React , { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 import * as Style from './styles'
 
 import api from  '../../services/api';
@@ -63,12 +65,14 @@ function Home() {
       </Style.FilterArea>
 
       <Style.Title>
-  <   h3>{ filterActived === 'late'? 'TAREFAS ATRASADAS': 'TAREFAS'}</h3>
+      <h3>{ filterActived === 'late'? 'TAREFAS ATRASADAS': 'TAREFAS'}</h3>
       </Style.Title>
 
       <Style.Content>
         { tasks.map(task => (
-          <TaskCard type={task.type}  title={task.title} when={task.when}/> 
+          <Link to={`/task/${task._id}`}>
+            <TaskCard type={task.type}  title={task.title} when={task.when}/> 
+          </Link>
           ))
         }
       </Style.Content>

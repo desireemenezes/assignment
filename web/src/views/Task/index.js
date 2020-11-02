@@ -1,5 +1,7 @@
 import React , { useState, useEffect } from 'react';
-import * as Style from './styles'
+import * as Style from './styles';
+import { format } from 'date-fns';
+
 
 import api from  '../../services/api';
 
@@ -9,13 +11,13 @@ import Footer from '../../components/Footer';
 import TypeIcons from '../../utils/typeIcons';
 
 
-function Task() {
+function Task({match}) {
 
   const [lateCount, setLateCount] = useState();
  
   const [type, setType] = useState();
   const [id, setId] = useState();
-  const [done, setDone] = useState(false); // começa como tarefa nã construída
+  const [done, setDone] = useState(false); // comeï¿½a como tarefa nï¿½ construï¿½da
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
   const [date, setDate] = useState();
@@ -27,6 +29,18 @@ function Task() {
     .then(response => {
         setLateCount(response.data.lenght);       
     })
+  }
+
+  async function LoadTask () {
+    await api.get(`/task/${match.params.id}`)
+    .then(response => {
+        setType(response.data.type);     
+        setTitle(response.data.title);   
+        setDescription(response.data.description); 
+        setDate(format(new Date(response.data.when), 'yyyy-MM-dd'));
+        setHour(format(new Date(response.data.when), 'HH:mm'));
+    })
+       
   }
 
   async function Save() {
@@ -43,6 +57,7 @@ function Task() {
 
   useEffect(() =>{
     lateVerify();
+    LoadTask();
     Save();
   }, [])
 

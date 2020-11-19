@@ -4,9 +4,6 @@ import * as Styled from './styles'
 
 import typeIcons from '../../utils/typeIcons';
 
-
-
-
 function TaskCard( { type, title, when } ) {
 
   const date = useMemo(() => format(new Date(when), 'dd/MM/yyyy'));

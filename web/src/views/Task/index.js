@@ -1,4 +1,5 @@
 import React , { useState, useEffect } from 'react';
+import {Redirect} from 'react-router-dom';
 import * as Style from './styles';
 import { format } from 'date-fns';
 
@@ -11,9 +12,10 @@ import Footer from '../../components/Footer';
 import TypeIcons from '../../utils/typeIcons';
 
 
-function Task({match}) {
+function Task({match}) { //match vem com as informa��es do parametro de navega��o
 
   const [lateCount, setLateCount] = useState();
+  const [redirect, setRedirect] = useState(false);
  
   const [type, setType] = useState();
   const [id, setId] = useState();
@@ -44,6 +46,19 @@ function Task({match}) {
   }
 
   async function Save() {
+    if(match.params.id){ // se existir o id eu quero atualizar a tarefa se não eu cadastro
+      await api.put(`/task/${match.params.id}`, {
+        macaddress,
+        done,
+        type,
+        title,
+        description,
+        when: `${date}T${hour}:00.000`
+      }).then(() =>
+          setRedirect(true)
+        
+      )
+    } else {
       await api.post('/task', {
         macaddress,
         type,
@@ -51,8 +66,9 @@ function Task({match}) {
         description,
         when: `${date}T${hour}:00.000`
       }).then(() =>
-          alert('tarefa cadastrada')
+          setRedirect(true)
       )
+    }
   }
 
   useEffect(() =>{
@@ -64,6 +80,7 @@ function Task({match}) {
 
   return (
     <Style.Container>
+      { redirect && <Redirect to="/" /> }
       <Header  lateCount={lateCount} clickNotification={Notification}/>
 
         <Style.Form>
@@ -72,7 +89,7 @@ function Task({match}) {
                     TypeIcons.map( (icon, index) => (
                         index > 0 && 
                         <button type="button" onClick={() => setType(index)}>
-                            <img src={icon} alt="Tipo tarefa" className={ type && type != index && 'inative'}/>
+                            <img src={icon} alt="Tipo tarefa" className={ type && type !== index && 'inative'}/>
                         </button>
                     ))
                 }

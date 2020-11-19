@@ -10,7 +10,7 @@ function Header( {lateCount, clickNotification}) {
    <Styled.Container>
 
       <Styled.LeftSide>
-        <img src={logo} alt="logo"></img>
+        <Link to="/"> <img src={logo} alt="logo"></img></Link>
       </Styled.LeftSide>
 
       <Styled.RightSide>

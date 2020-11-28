@@ -1,21 +1,20 @@
 import styled from 'styled-components';
 
-
 export const Container = styled.div`
-    width: 100%;
-    height: 50px;
-    background-color: #003049;
-    border-top: 5px solid #ee6b26;
+  width: 100%;
+  height: 50px;
+  background: #003049;
+  border-top: 5px solid #EE6B26;
 
-    position: fixed;
-    bottom: 0;
+  position: fixed;
+  bottom: 0;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    span {
-        color: #fff;
-        
-    }
+  span{
+    color: #FFF;
+  }
+
 `

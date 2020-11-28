@@ -1,34 +1,26 @@
-import React , { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import {Link, Redirect} from 'react-router-dom';
+import * as S from './styles';
 
-import * as Style from './styles'
+import api from '../../services/api';
+import isConnected from '../../utils/isConnected';
 
-import api from  '../../services/api';
-
-//components
+//NOSSOS COMPONENTES
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import FilterCard from '../../components/FilterCard';
 import TaskCard from '../../components/TaskCard';
 
 function Home() {
-  // nome do estado, função que atualizad o estado
   const [filterActived, setFilterActived] = useState('all');
-  const [tasks, setTasks] =  useState([]);
-  const [lateCount, setLateCount] = useState([]);
+  const [tasks, setTasks] = useState([]);
+  const [redirect, setRedirect] = useState(false);
+
 
   async function loadTasks(){
-    await api.get(`/task/filter/${filterActived}/00-88-14-4D-4C-FB`)// interpolação de acento
+    await api.get(`/task/filter/${filterActived}/${isConnected}`)
     .then(response => {
-        setTasks(response.data);
-        console.log(response.data);
-    })
-  }
-
-  async function lateVerify(){
-    await api.get(`/task/filter/late/00-88-14-4D-4C-FB`)// interpolação de acento
-    .then(response => {
-        setLateCount(response.data.lenght);       
+      setTasks(response.data)
     })
   }
 
@@ -36,49 +28,53 @@ function Home() {
     setFilterActived('late');
   }
 
-
-  useEffect(() =>{
+  useEffect(() => {
+    if(!isConnected)
+      setRedirect(true); 
     loadTasks();
-    lateVerify();
+
   }, [filterActived])
 
-
   return (
-    <Style.Container>
-      <Header  lateCount={lateCount} clickNotification={Notification}/>
-      <Style.FilterArea>
-        <button type="button" onClick={() => setFilterActived("all")}>
-          <FilterCard title="Todos" actived={filterActived === 'all'} />
+    <S.Container>
+      { redirect && <Redirect to="/qrcode"/> }
+      <Header clickNotification={Notification}/>
+      
+      <S.FilterArea>
+        <button type="button"        onClick={() => setFilterActived("all")}>
+          <FilterCard title="Todos"  actived={filterActived === 'all'}   />
         </button>
-        <button  type="button" onClick={() => setFilterActived("today")}>
-          <FilterCard title="Hoje" actived={filterActived === 'today'}/>
+        <button type="button"        onClick={() => setFilterActived("today")}>
+          <FilterCard title="Hoje"   actived={filterActived === 'today'} />
         </button>
-        <button otype="button" onClick={() => setFilterActived("week")}>
-          <FilterCard title="Semana" actived={filterActived === 'week'} />
+        <button type="button"        onClick={() => setFilterActived("week")}>
+          <FilterCard title="Semana" actived={filterActived === 'week'}  />
         </button>
-        <button type="button" onClick={() => setFilterActived("month")}>
-          <FilterCard title="Mês" actived={filterActived === 'month'} />
+        <button type="button"        onClick={() => setFilterActived("month")}>
+          <FilterCard title="Mês" actived={filterActived === 'month'}  />
         </button>
-        <button type="button" onClick={() => setFilterActived("year")}>
-          <FilterCard title="Ano" actived={filterActived === 'year'} />
-        </button>
-      </Style.FilterArea>
+        <button type="button"     onClick={() => setFilterActived("year")}>
+          <FilterCard title="Ano" actived={filterActived === 'year'}  />
+        </button>        
+      </S.FilterArea>
 
-      <Style.Title>
-      <h3>{ filterActived === 'late'? 'TAREFAS ATRASADAS': 'TAREFAS'}</h3>
-      </Style.Title>
+      <S.Title>
+        <h3>{filterActived === 'late' ? 'TAREFAS ATRASADAS'  : 'TAREFAS'}</h3>
+      </S.Title>
 
-      <Style.Content>
-        { tasks.map(task => (
-          <Link to={`/task/${task._id}`}>
-            <TaskCard type={task.type}  title={task.title} when={task.when}/> 
+      <S.Content>
+        {
+          tasks.map(t => (
+          <Link to={`/task/${t._id}`}>
+            <TaskCard type={t.type} title={t.title} when={t.when} done={t.done} />    
           </Link>
-          ))
+          ))  
         }
-      </Style.Content>
-      <Footer />
-    </Style.Container>
-  );
+      </S.Content>
+
+      <Footer/>
+    </S.Container>
+  )
 }
 
 export default Home;

@@ -6,39 +6,39 @@ const TaskValidation = async (req, res, next) => {
   const { macaddress, type, title, description, when } = req.body;
 
   if(!macaddress)
-  return res.status(400).json({ error: 'macaddress √© obrigat√≥rio'});
+  return res.status(400).json({ error: 'macaddress È obrigatÛrio'});
   else if(!type)
-  return res.status(400).json({ error: 'tipo √© obrigat√≥rio'});
+  return res.status(400).json({ error: 'tipo È obrigatÛrio'});
   else if(!title)
-  return res.status(400).json({ error: 't√≠tulo √© obrigat√≥rio'});
+  return res.status(400).json({ error: 'tÌtulo È obrigatÛrio'});
   else if(!description)
-  return res.status(400).json({ error: 'Descri√ß√£o √© obrigat√≥ria'});
+  return res.status(400).json({ error: 'DescriÁ„o È obrigatÛria'});
   else if(!when)
-  return res.status(400).json({ error: 'Data e Hora s√£o obrigat√≥rios'});
-  else if(isPast(new Date(when)))
-  return res.status(400).json({ error: 'escolha uma data e hora futura'});
+  return res.status(400).json({ error: 'Data e Hora s„o obrigatÛrios'});
   
   else{
     let exists;
+
     if(req.params.id){
-        exists = await TaskModel.
-            findOne(
-              { 
-                '_id': {'$ne': req.params.id},
-                'when': {'$eq': new Date(when)},  
-                'macaddress': {'$in': macaddress}
-              });
-        
-    } else {
-        exists = await TaskModel.
+      exists = await TaskModel.
+                    findOne(
+                      { '_id': { '$ne': req.params.id },
+                        'when': {'$eq': new Date(when) },  
+                        'macaddress': {'$in': macaddress}
+                      });
+    }else{
+      if(isPast(new Date(when)))
+        return res.status(400).json({ error: 'escolha uma data e hora futura'});
+      exists = await TaskModel.
         findOne(
           { 
             'when': {'$eq': new Date(when)},  
             'macaddress': {'$in': macaddress}
           });
     }
+    
     if(exists){
-      return res.status(400).json({ error: 'j√° existe uma tarefa nesse dia e hor√°rio'});
+      return res.status(400).json({ error: 'j· existe uma tarefa nesse dia e hor·rio'});
     }
 
     next();

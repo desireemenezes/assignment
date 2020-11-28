@@ -1,16 +1,15 @@
 import React from 'react';
-import * as Styled from './styles'
+import * as S from './styles';
 
-import filter from '../../assets/filter.png'
+import filter from '../../assets/filter.png';
 
-
-function FilterCard( { title, actived }) {
+function FilterCard({ title, actived }) {
   return (
-   <Styled.Container actived={actived}>
-       <img src={filter} alt="Filtro"></img>
-       <span>{title}</span>
-   </Styled.Container>
-  );
+    <S.Container actived={actived}>
+      <img src={filter} alt="Filtro"/>
+      <span>{title}</span>
+    </S.Container>
+  )
 }
 
 export default FilterCard;

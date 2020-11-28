@@ -1,138 +1,164 @@
-import React , { useState, useEffect } from 'react';
-import {Redirect} from 'react-router-dom';
-import * as Style from './styles';
-import { format } from 'date-fns';
+import React, { useState, useEffect } from 'react';
+import {Redirect} from 'react-router-dom'
+import * as S from './styles';
+import {format} from 'date-fns';
 
+import api from '../../services/api';
+import isConnected from '../../utils/isConnected';
 
-import api from  '../../services/api';
-
-//components
+//NOSSOS COMPONENTES
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import TypeIcons from '../../utils/typeIcons';
 
+import iconCalendar from '../../assets/calendar.png';
+import iconClock from '../../assets/clock.png';
 
-function Task({match}) { //match vem com as informa��es do parametro de navega��o
-
-  const [lateCount, setLateCount] = useState();
+function Task({match}) {
   const [redirect, setRedirect] = useState(false);
- 
   const [type, setType] = useState();
-  const [id, setId] = useState();
-  const [done, setDone] = useState(false); // come�a como tarefa n� constru�da
+  //const [id, setId] = useState();
+  const [done, setDone] = useState(false);
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
   const [date, setDate] = useState();
   const [hour, setHour] = useState();
-  const [macaddress, setMacaddress] = useState(['00-88-14-4D-4C-FB']);
+  
 
-  async function lateVerify(){
-    await api.get(`/task/filter/late/00-88-14-4D-4C-FB`)// interpolação de acento
-    .then(response => {
-        setLateCount(response.data.lenght);       
-    })
-  }
-
-  async function LoadTask () {
+  async function LoadTaskDetails(){
     await api.get(`/task/${match.params.id}`)
     .then(response => {
-        setType(response.data.type);     
-        setTitle(response.data.title);   
-        setDescription(response.data.description); 
-        setDate(format(new Date(response.data.when), 'yyyy-MM-dd'));
-        setHour(format(new Date(response.data.when), 'HH:mm'));
+      setType(response.data.type)
+      setDone(response.data.done)
+      setTitle(response.data.title)
+      setDescription(response.data.description)
+      setDate(format(new Date(response.data.when), 'yyyy-MM-dd'))
+      setHour(format(new Date(response.data.when), 'HH:mm'))
     })
-       
   }
 
-  async function Save() {
-    if(match.params.id){ // se existir o id eu quero atualizar a tarefa se não eu cadastro
+  async function Save(){
+    //Validação dos dados
+    if(!title)
+      return alert("Você precisa informar o título da terefa")
+    else if(!description)
+      return alert("Você precisa informar a descrição da terefa")
+    else if(!type)
+      return alert("Você precisa selecionar o tipo da terefa")
+    else if(!date)
+      return alert("Você precisa definir a data da terefa")
+    else if(!hour)
+      return alert("Você precisa definir a hora da terefa")
+
+
+
+    if(match.params.id){
       await api.put(`/task/${match.params.id}`, {
-        macaddress,
+        macaddress: isConnected,
         done,
         type,
         title,
         description,
         when: `${date}T${hour}:00.000`
-      }).then(() =>
-          setRedirect(true)
-        
+      }).then(() => 
+        setRedirect(true)
       )
-    } else {
+
+    }else{
       await api.post('/task', {
-        macaddress,
+        macaddress: isConnected,
         type,
         title,
         description,
         when: `${date}T${hour}:00.000`
-      }).then(() =>
+      }).then(() => 
           setRedirect(true)
-      )
+      ).catch(response => {
+        alert(response.data.error)
+      })
     }
   }
 
-  useEffect(() =>{
-    lateVerify();
-    LoadTask();
-    Save();
+  async function Remove(){
+    const res = window.confirm('Deseja realmente remover a tarefa?')
+    if(res === true){
+      await api.delete(`/task/${match.params.id}`)
+      .then(() => setRedirect(true));
+    }
+  }
+
+
+  useEffect(() => {
+    if(!isConnected)
+      setRedirect(true);
+    LoadTaskDetails();
   }, [])
 
-
   return (
-    <Style.Container>
+    <S.Container>
       { redirect && <Redirect to="/" /> }
-      <Header  lateCount={lateCount} clickNotification={Notification}/>
+      <Header />    
 
-        <Style.Form>
-            <Style.TypeIcons>
-                {
-                    TypeIcons.map( (icon, index) => (
-                        index > 0 && 
-                        <button type="button" onClick={() => setType(index)}>
-                            <img src={icon} alt="Tipo tarefa" className={ type && type !== index && 'inative'}/>
-                        </button>
-                    ))
-                }
-            </Style.TypeIcons>
+      <S.Form>
+        <S.TypeIcons>
+          {
+            TypeIcons.map((icon, index) => (
+             index > 0 && 
+             <button type="button" onClick={() => setType(index)}>
+                <img src={icon} alt="Tipo da Tarefa" 
+                className={type && type !== index && 'inative'}/>
+             </button>
+            ))
+          }
+        </S.TypeIcons>
 
-            <Style.Input>
-                <span>Título da tarefa</span>
-                <input type="text" onChange={e => setTitle(e.target.value)} value={title}/>
-            </Style.Input>
+        <S.Input>
+          <span>Título</span>
+          <input type="text" placeholder="Título da terefa..." 
+          onChange={e => setTitle(e.target.value)} value={title} />
+        </S.Input>
 
-            <Style.TextArea>
-                <span>Descrição</span>
-                <textarea rows={5} placeholder="Detalhes da tarefa..." 
-                 onChange={e => setDescription(e.target.value)} value={description}/>
-            </Style.TextArea>
+        <S.TextArea>
+          <span>Descrição</span>
+          <textarea rows={5} placeholder="Detalhes da tarefa..." 
+          onChange={e => setDescription(e.target.value)} value={description}/>
+        </S.TextArea>
 
-            <Style.Input className="fift">
-                <span>Data</span>
-                <input type="date" onChange={e => setDate(e.target.value)} value={date} />
-            </Style.Input>
+        <S.Input>
+          <span>Data</span>
+          <input type="date" placeholder="Título da terefa..." 
+          onChange={e => setDate(e.target.value)} value={date} />
+          <img src={iconCalendar} alt="Calendário"/>
+        </S.Input>
 
-            <Style.Input className="fift">
-                <span>Hora</span>
-                <input type="time" onChange={e => setHour(e.target.value)} value={hour} />
-            </Style.Input>
+        <S.Input>
+          <span>Hora</span>
+          <input type="time" placeholder="Título da terefa..." 
+          onChange={e => setHour(e.target.value)} value={hour}/>
+          <img src={iconClock} alt="Relógio"/>
+        </S.Input>
 
-            <Style.Options>
-                <div>
-                    <input type="checkbox" checked={done} onChange={() => setDone(!done)}/>
-                    <span>Concluído</span>
-                </div>
-                <button type="button">Excluir</button>
-            </Style.Options>
+        <S.Options>
+          <div>
+            <input type="checkbox" checked={done} onChange={() => setDone(!done)}/>
+            <span>CONCLUÍDO</span>
+          </div>
+        { match.params.id && <button type="button" onClick={Remove}>EXCLUIR</button> }
+        </S.Options>
 
-            <Style.Save>
-                <button type="button"onClick={Save}> Salvar</button>
-            </Style.Save>
+        <S.Save>
+          <button type="button" onClick={Save}>SALVAR</button>
+        </S.Save>
 
-        </Style.Form>
 
-      <Footer />
-    </Style.Container>
-  );
+
+      </S.Form>
+
+
+
+      <Footer/>
+    </S.Container>
+  )
 }
 
 export default Task;

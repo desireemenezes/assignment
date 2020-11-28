@@ -1,34 +1,31 @@
 import styled from 'styled-components';
 
-
 export const Container = styled.div`
-    width: 260px;
-    height: 60px;
-    background-color: ${props => props.actived ? '#f77f00' : '#003049'};
-    padding: 10px;
-    cursor: pointer;
+  width: 260px;
+  height: 60px;
+  background: ${props => props.actived ? '#EE6B26' : '#003049'};
+  padding: 10px;
+  cursor: pointer;
 
-    border-radius: 5px;
+  border-radius: 5px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 
-    img {
-        width: 30px;
-        height: 30px;
-    }
+  img {
+    width: 25px;
+    height: 25px;
+  }
 
-    span {
-        color: #fff;
-        font-weight: bold;
-        align-self: flex-end;
-        font-size: 18px;
-    }
+  span {
+    color: #FFF;
+    font-weight: bold;
+    align-self: flex-end;
+    font-size: 18px;
+  }
 
-    &:hover {
-        background-color: #f77f00;
-        
-    }
-   
+  &:hover{
+    background: #EE6B26;
+  }
 `

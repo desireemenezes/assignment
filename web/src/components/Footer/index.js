@@ -1,13 +1,12 @@
 import React from 'react';
-import * as Styled from './styles'
-
+import * as S from './styles';
 
 function Footer() {
   return (
-   <Styled.Container>
-       <span>ToDo - Organizando a sua vida</span>
-   </Styled.Container>
-  );
+    <S.Container>
+     <span>ToDO - Organizando sua vida</span>
+    </S.Container>
+  )
 }
 
 export default Footer;

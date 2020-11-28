@@ -7,13 +7,16 @@
     "start": "nodemon src/index.js"
   },
   "keywords": [],
-  "author": "Desirée Menezes Oliveira",
+  "author": "Desir�e Menezes Oliveira",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
-    "date-fns": "^2.15.0",
+    "date-fns": "^2.16.1",
     "express": "^4.17.1",
-    "mongoose": "^5.10.0"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.0",
+    "nodemon": "^2.0.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

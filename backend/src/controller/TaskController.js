@@ -9,7 +9,7 @@ const {
     endOfMonth,
     startOfYear,
     endOfYear
-   } = require('date-fns'); // comeÃ§o do dia  e final do dia // comeÃ§o da semana final da semana
+   } = require('date-fns'); // começa no do dia  e final do dia // começa da semana final da semana
 
 const current =  new Date(); // devolve dia e hora atual
 

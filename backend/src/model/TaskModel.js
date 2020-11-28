@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 const TaskSchema = new Schema({
     macaddress: { 
         type: String, 
-        required: true
-    }, //endereÃ§o fisico
+        required: true // endereço físico
+    }, 
     type: {
         type: Number,
          required: true

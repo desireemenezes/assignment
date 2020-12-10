@@ -13,19 +13,6 @@ const UserValidation = async (req, res, next) => {
   return res.status(400).json({ error: 'password obrigatório'});
   
    else {
-    
-    let exists;
-    if(req.params.id){
-        exists = await UserModel.findOne(
-              { 
-                '_id': {'$ne': req.params.id}, 
-              });
-        
-    } 
-    if(exists){
-      return res.status(400).json({ error: 'Já existe'});
-    }
-
     next();
   }
 }

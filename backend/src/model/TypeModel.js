@@ -3,13 +3,11 @@ const Schema = mongoose.Schema;
 
 mongoose.Promise = global.Promise;
 
-const UserSchema = new Schema({
-    user : String,
-    email : String,
-    password : String
+const TypeSchema = new Schema({
+    typeCategory: String
     }, {
         versionKey:false
     });
     
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Type', TypeSchema);

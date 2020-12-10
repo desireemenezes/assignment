@@ -1,15 +1,20 @@
 const mongoose = require('../config/database');
+const Type = require('./TypeModel');
+
 const Schema = mongoose.Schema;
+
 
 const TaskSchema = new Schema({
     macaddress: { 
         type: String, 
         required: true // endereço físico
     }, 
-    type: {
-        type: Number,
-         required: true
-    },
+    type: { 
+        type: Number, 
+        required: true // endereço físico
+    }, 
+    typeCategory: { type: Schema.Types.ObjectId, ref: 'Type' },
+
     title: {
         type: String,
         required: true

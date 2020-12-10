@@ -10,6 +10,7 @@ export default function Routes(){
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Home}/>
+        <Route path="/tasks" exact component={Task}/>
         <Route path="/task" exact component={Task}/>
         <Route path="/task/:id" exact component={Task}/>
         <Route path="/qrcode" exact component={QrCode}/>

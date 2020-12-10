@@ -10,7 +10,7 @@ import iconTravel from '../assets/travel.png';
 import iconSport from '../assets/sport.png';
 
 const typeIcons = [
-  null,
+  null, // porque começa no zero e não tenho um ícone do tipo zero
   iconDefault,
   iconFooteball,
   iconFood,

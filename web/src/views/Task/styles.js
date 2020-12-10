@@ -66,6 +66,13 @@ export const Input = styled.div`
     bottom: 30px;
   }
 
+  select {
+    padding: 10px;
+    width: 140px;
+    border: 1px solid #EE6B26;
+    background: #fff;
+  }
+
 ` 
 
 export const TextArea = styled.div`

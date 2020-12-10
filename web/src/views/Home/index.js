@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
+// useState Retorna um valor e uma função para atualizar o valor.
+// A função passada para useEffect será executada depois que a renderização estiver disponível na tela
+
 import {Link, Redirect} from 'react-router-dom';
 import * as S from './styles';
 
@@ -12,24 +15,25 @@ import FilterCard from '../../components/FilterCard';
 import TaskCard from '../../components/TaskCard';
 
 function Home() {
-  const [filterActived, setFilterActived] = useState('all');
-  const [tasks, setTasks] = useState([]);
-  const [redirect, setRedirect] = useState(false);
+  const [filterActived, setFilterActived] = useState('all'); //crio constante de vetor com o nome do estado e a fun��o que atualiza o estado.
+  const [tasks, setTasks] = useState([]); //contante de tarefas
+  const [redirect, setRedirect] = useState(false); // redirecionamento do react-router-dom
 
 
-  async function loadTasks(){
-    await api.get(`/task/filter/${filterActived}/${isConnected}`)
-    .then(response => {
-      setTasks(response.data)
-    })
-  }
-
-  function Notification(){
+  function Notification(){ // só notifica tarefas atrasadas
     setFilterActived('late');
   }
 
-  useEffect(() => {
-    if(!isConnected)
+  useEffect(() => { // useEffect é chamado quando inicia a tela
+    
+  async function loadTasks(){ // carrego as tarefas passo no parametro o filtro e se ta ativa
+      await api.get(`/task/filter/${filterActived}/${isConnected}`)
+      .then(response => {
+        setTasks(response.data)
+      })
+    }
+
+    if(!isConnected) // se tiver conectado eu carrego as tarefas
       setRedirect(true); 
     loadTasks();
 
@@ -38,6 +42,7 @@ function Home() {
   return (
     <S.Container>
       { redirect && <Redirect to="/qrcode"/> }
+      
       <Header clickNotification={Notification}/>
       
       <S.FilterArea>
@@ -59,14 +64,15 @@ function Home() {
       </S.FilterArea>
 
       <S.Title>
-        <h3>{filterActived === 'late' ? 'TAREFAS ATRASADAS'  : 'TAREFAS'}</h3>
+        <h3>{filterActived === 'late' ? 'TAREFAS ATRASADAS'  : 'TAREFAS'}</h3> 
       </S.Title>
 
-      <S.Content>
+      <S.Content> 
+       {/* Importo o link do react router dom (passo a task e oid pra cada vez que eu clicar na tarefa ir para area da tarefa*/}
         {
           tasks.map(t => (
           <Link to={`/task/${t._id}`}>
-            <TaskCard type={t.type} title={t.title} when={t.when} done={t.done} />    
+            <TaskCard key={t._id} type={t.type} typeCategory={t.typeCategory} title={t.title} when={t.when} done={t.done} />    
           </Link>
           ))  
         }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {Redirect} from 'react-router-dom';
 import * as S from './styles';
-import Qr from 'qrcode.react';
+import Qr from 'qrcode.react'; //react qrcode biblioteca
 
 
 //NOSSOS COMPONENTES
@@ -16,7 +16,7 @@ function QrCode() {
     if(!mac)
       alert('Você precisa informar o número que apareceu no celular!');
     else{
-      await localStorage.setItem('@todo/macaddress', mac);
+      await localStorage.setItem('@todo/macaddress', mac); //SALVO NA PROPRIEDADE QUE É ARMAZENADA DENTRO DO NAVEGADOR
       setRedirect(true);
       window.location.reload();
     }
@@ -29,10 +29,10 @@ function QrCode() {
       <Header/>
 
       <S.Content>
-        <h1>CAPTURE O QRCODE PELO APP</h1>
+        <h1>CAPTURE O QRCODE PELO CELULAR</h1>
         <p>suas atividades serão sincronizadas com a do seu celular.</p>
         <S.QrCodeArea>
-          <Qr value='123' size={350}/>
+          <Qr value='123' size={300}/>
         </S.QrCodeArea>
 
         <S.ValidationCode>

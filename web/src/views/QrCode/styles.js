@@ -19,6 +19,19 @@ export const Content = styled.div`
   }
   p {
     color: #003049;
+    text-align: center;
+  }
+  @media(max-width: 800px) {
+    width: 90%;
+    h1 {
+      padding-top: 20px;
+      font-size: 18px;
+    }
+    canvas {
+      height: 200px !important;
+      width: 200px !important;
+      padding: 20px;
+    }
   }
 
 `
@@ -36,8 +49,13 @@ export const ValidationCode = styled.div`
   margin: 10px;
 
   span{
-    text-transform: uppercase;
-    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    font-size: 15px;
+    text-align: center;
+    text-transform: none;
+    color: #003049;
+    font-weight: 600;;
   }
 
   input {
@@ -56,9 +74,18 @@ export const ValidationCode = styled.div`
     border: none;
     cursor: pointer;
     margin-top: 10px;
-
-    &:hover{
-      background: #003049;
+  }
+  @media(max-width: 800px) {
+    span {
+      padding-top: 20px;
+      padding-bottom: 10px;
+      font-size: 14px;
+      text-align: center;
     }
+    button{
+      font-size: 13px;
+      margin-top: 10px;
+    }
+   
   }
 `

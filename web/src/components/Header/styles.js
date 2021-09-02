@@ -7,6 +7,7 @@ export const Container = styled.div`
   border-bottom: 5px solid #EE6B26;
 
   display: flex;
+  overflow: auto;
 `
 
 export const LeftSide = styled.div`
@@ -19,6 +20,12 @@ export const LeftSide = styled.div`
   img {
     width: 100px;
     height: 40px;
+  }
+  overflow: auto;
+
+  /** small device */
+  @media(max-width: 800px) {
+    width: 50%;
   }
  
 `
@@ -75,6 +82,19 @@ export const RightSide = styled.div`
 
   button {
     font-size: 16px;
+  }
+
+  /** small device */
+  @media(max-width: 800px) {
+  
+    align-items: center;
+    text-align: center;
+    a, button {
+      font-size: 13px;
+    }
+    .dividir::after {
+      display: none;
+    }
   }
 
 `

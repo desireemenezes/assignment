@@ -9,10 +9,21 @@ export const FilterArea = styled.div`
   display: flex;
   justify-content: space-around;  
   margin-top: 30px;
+  z-index: 0000;
+  overflow: hidden;
 
   button {
     background: none;
     border: none;
+  }
+
+  /** small device */
+  @media(max-width: 800px) {
+    flex-direction: column;
+    align-items: center;
+    button {
+    padding-bottom: 10px;
+  }
   }
 `
 
@@ -21,7 +32,7 @@ export const Content = styled.div `
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 70px;
+  margin-bottom: 100px;
 
   a {
     text-decoration: none;  
